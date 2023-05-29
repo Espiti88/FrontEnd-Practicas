@@ -9,7 +9,8 @@ export const allPracticas = async() => {
         empresa: practica.empresa,
         supervisor: practica.supervisor,
         tarea: practica.tarea,
-        fecha: practica.fecha
+        fecha: practica.fecha,
+        hora: practica.hora
     }));
     return practicaList;
 }
