@@ -9,31 +9,44 @@ export const FormularioPractica = ({ agregar }) => {
     const [tarea, setTarea] = useState("");
     const [fecha, setFecha] = useState(null);
 
+    function agregarCero(n) {
+        if (n < 10) {
+            n = "0" + n
+        }
+        return n;
+    }
+
     const guardarPractica = (event) => {
         event.preventDefault()
+        
+        if (empresa.length < 3) {
+            alert("Empresa inválida")
+            return
+        }
+        if (supervisor.length < 3) {
+            alert("Supervisor inválido")
+            return
+        }
+        if (tarea.length < 3) {
+            alert("Tarea inválida")
+            return
+        }
+        if (fecha == null) {
+            alert("Fecha inválida")
+            return
+        }
+        
+        let formatoFecha = agregarCero(fecha.getHours())
+                            + ":" + agregarCero(fecha.getMinutes())
+                            + " " + agregarCero(fecha.getDate())
+                            + "/" + agregarCero(parseInt(fecha.getMonth()+1))
+                            + "/"+ fecha.getFullYear();
 
         let practica = {
             empresa: empresa,
             supervisor: supervisor,
             tarea: tarea,
-            fecha: fecha
-        }
-
-        if (practica.empresa.length < 3) {
-            alert("Empresa inválida")
-            return
-        }
-        if (practica.supervisor.length < 3) {
-            alert("Supervisor inválido")
-            return
-        }
-        if (practica.tarea.length < 3) {
-            alert("Tarea inválida")
-            return
-        }
-        if (practica.fecha == null) {
-            alert("Fecha inválida")
-            return
+            fecha: formatoFecha
         }
 
         agregar(practica)
@@ -56,14 +69,13 @@ export const FormularioPractica = ({ agregar }) => {
                     <input type="text" className="form-control" id="supervisor" placeholder={'Supervisor'} value={supervisor} onChange={(event) => setSupervisor(event.target.value)} />
                     <br/>
 
-                    <label for="tarea">Tarea</label>
-                    <textarea class="form-control" id="tarea" rows="2" placeholder={'Tarea a realizar'} value={tarea} onChange={(event) => setTarea(event.target.value)}></textarea>
+                    <label htmlFor="tarea">Tarea</label>
+                    <textarea className="form-control" id="tarea" rows="2" placeholder={'Tarea a realizar'} value={tarea} onChange={(event) => setTarea(event.target.value)}></textarea>
                     <br/>
 
                     <DatePicker showTimeSelect dateFormat="MMMM d, yyyy h:mmaa" placeholderText="Seleccione la fecha" selected={fecha} onChange={date => setFecha(date)}/> <br/>
 
-                </div> <br/>
-
+                </div>
                 
                 <button type="submit" className="btn btn-primary"> Registrar </button>
 
