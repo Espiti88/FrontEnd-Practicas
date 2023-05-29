@@ -1,6 +1,11 @@
 *{
     margin: 0px 10px 10px 1px;
 }
+
+h4{
+    text-align: center;
+    color: gray;
+}
 .baseTab{
     border-left: 1px solid white !important;
     cursor: pointer;
