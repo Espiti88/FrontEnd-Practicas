@@ -9,7 +9,7 @@ export const FormularioPractica = ({ agregar }) => {
     const [tarea, setTarea] = useState("");
     const [fecha, setFecha] = useState(null);
 
-    function agregarCero(n) {
+    const agregarCero = (n) => {
         if (n < 10) {
             n = "0" + n
         }
@@ -38,7 +38,7 @@ export const FormularioPractica = ({ agregar }) => {
         
         let formatoFecha = agregarCero(fecha.getHours())
                             + ":" + agregarCero(fecha.getMinutes())
-                            + " " + agregarCero(fecha.getDate())
+                            + "-" + agregarCero(fecha.getDate())
                             + "/" + agregarCero(parseInt(fecha.getMonth()+1))
                             + "/"+ fecha.getFullYear();
 
