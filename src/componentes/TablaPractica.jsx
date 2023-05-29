@@ -1,7 +1,14 @@
-import { allPracticas } from "../peticiones/allPracticas"
-
-export const TablaPractica = ({ eliminar, listaPractica }) => {
+export const TablaPractica = ({ eliminar, listaPractica, listaFiltro }) => {
     if (listaPractica.length > 0){
+        
+        let listaTabla = []
+
+        if (listaFiltro != null){
+            listaTabla = listaFiltro
+        } else {
+            listaTabla = listaPractica
+        }
+
         return (
             <>
                 <table className="table">
@@ -11,17 +18,19 @@ export const TablaPractica = ({ eliminar, listaPractica }) => {
                             <th scope="col">Supervisor</th>
                             <th scope="col">Tarea</th>
                             <th scope="col">Fecha</th>
+                            <th scope="col">Hora</th>
                             <th scope="col">Función</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            listaPractica.map((practica) => 
+                            listaTabla.map((practica) => 
                                 <tr key={practica.id}>
                                     <td>{practica.empresa}</td>
                                     <td>{practica.supervisor}</td>
                                     <td>{practica.tarea}</td>
                                     <td>{practica.fecha}</td>
+                                    <td>{practica.hora}</td>
                                     <td>
                                         <button className="btn btn-danger" onClick={(event) => eliminar(practica)}>Eliminar</button>
                                     </td>

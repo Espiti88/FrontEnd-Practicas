@@ -7,7 +7,7 @@ export const FormularioPractica = ({ agregar }) => {
     const [empresa, setEmpresa] = useState("");
     const [supervisor, setSupervisor] = useState("");
     const [tarea, setTarea] = useState("");
-    const [fecha, setFecha] = useState(null);
+    const [fechaHora, setFechaHora] = useState(null);
 
     const agregarCero = (n) => {
         if (n < 10) {
@@ -31,29 +31,31 @@ export const FormularioPractica = ({ agregar }) => {
             alert("Tarea inválida")
             return
         }
-        if (fecha == null) {
+        if (fechaHora == null) {
             alert("Fecha inválida")
             return
         }
         
-        let formatoFecha = agregarCero(fecha.getHours())
-                            + ":" + agregarCero(fecha.getMinutes())
-                            + "-" + agregarCero(fecha.getDate())
-                            + "/" + agregarCero(parseInt(fecha.getMonth()+1))
-                            + "/"+ fecha.getFullYear();
+        let formatoFecha = agregarCero(fechaHora.getDate())
+                            + "/" + agregarCero(parseInt(fechaHora.getMonth()+1))
+                            + "/"+ fechaHora.getFullYear();
+        
+        let formatoHora = agregarCero(fechaHora.getHours())
+                            + ":" + agregarCero(fechaHora.getMinutes())
 
         let practica = {
             empresa: empresa,
             supervisor: supervisor,
             tarea: tarea,
-            fecha: formatoFecha
+            fecha: formatoFecha,
+            hora: formatoHora
         }
 
         agregar(practica)
         setEmpresa("");
         setSupervisor("");
         setTarea("");
-        setFecha(null)
+        setFechaHora(null)
     }
 
     return (
@@ -73,7 +75,7 @@ export const FormularioPractica = ({ agregar }) => {
                     <textarea className="form-control" id="tarea" rows="2" placeholder={'Tarea a realizar'} value={tarea} onChange={(event) => setTarea(event.target.value)}></textarea>
                     <br/>
 
-                    <DatePicker showTimeSelect dateFormat="MMMM d, yyyy h:mmaa" placeholderText="Seleccione la fecha" selected={fecha} onChange={date => setFecha(date)}/> <br/>
+                    <DatePicker showTimeSelect dateFormat="MMMM d, yyyy h:mmaa" placeholderText="Seleccione la fecha" selected={fechaHora} onChange={date => setFechaHora(date)}/> <br/>
 
                 </div>
                 
